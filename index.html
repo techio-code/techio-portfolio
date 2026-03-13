@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>てちお | コード0でアプリを作る人</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-left">
+        <a href="#" class="logo">
+          <div class="logomark">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="#7C3AED"/>
+              <text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="bold">T</text>
+            </svg>
+          </div>
+          <span class="logo-text">てちお</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#works">作ったもの</a></li>
+          <li><a href="#about">できること</a></li>
+          <li><a href="#numbers">実績</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <a href="https://note.com/techio_code" class="btn btn-primary btn-sm" target="_blank">noteを読む</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-circle hero-circle-1"></div>
+      <div class="hero-circle hero-circle-2"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-header">
+          <h1>コード知識ゼロで<br>アプリを作る人</h1>
+          <p>建設業で働きながら、AIの力だけでWebアプリを開発中。Claude Codeを相棒に、アイデアを形にしています。</p>
+        </div>
+        <div class="hero-ctas">
+          <a href="#works" class="btn btn-primary">作品を見る</a>
+          <a href="https://x.com/techio_code" class="btn btn-tertiary" target="_blank">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#7C3AED"/>
+            </svg>
+            Xをフォロー
+          </a>
+        </div>
+      </div>
+      <div class="hero-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-content">
+              <p class="phone-emoji">🍵</p>
+              <p class="phone-title">お茶ガチャ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TECH STACK ========== -->
+  <section class="logo-clouds">
+    <div class="container">
+      <p class="logo-clouds-text">使っている技術・ツール</p>
+      <div class="logo-grid">
+        <div class="logo-item">Claude Code</div>
+        <div class="logo-item">Figma</div>
+        <div class="logo-item">Notion</div>
+        <div class="logo-item">GitHub</div>
+        <div class="logo-item">Vercel</div>
+        <div class="logo-item">Next.js</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WORKS ========== -->
+  <section class="features" id="works">
+    <div class="container">
+      <div class="section-heading section-heading-center">
+        <p class="section-tag">Works</p>
+        <h2>AIだけで作ったアプリたち</h2>
+        <p class="section-desc">コードは1行も自分で書いていません。全部AIとの会話だけで完成しました。</p>
+      </div>
+      <div class="features-content">
+        <div class="features-row">
+          <div class="feature-visual">
+            <div class="feature-mockup app-mockup-1">
+              <div class="app-preview">
+                <span class="app-emoji">🍵</span>
+              </div>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-card">
+              <div class="feature-icon feature-icon-purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>お茶ガチャ</h3>
+              <p>ボタンを押すとランダムでお茶が出てくるガチャアプリ。休憩時間のちょっとした楽しみに。</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon feature-icon-teal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="white" stroke-width="2"/>
+                  <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>開発のポイント</h3>
+              <p>Claude Codeに「お茶のガチャアプリ作って」と話しかけただけ。アニメーションも全部AIが実装。</p>
+            </div>
+          </div>
+        </div>
+        <div class="features-row features-row-reverse">
+          <div class="feature-visual">
+            <div class="feature-mockup app-mockup-2">
+              <div class="app-preview">
+                <span class="app-emoji">⛑️</span>
+              </div>
+            </div>
+          </div>
+          <div class="feature-info">
+            <div class="feature-card">
+              <div class="feature-icon feature-icon-purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M17 21V19C17 16.7909 15.2091 15 13 15H5C2.79086 15 1 16.7909 1 19V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="9" cy="7" r="4" stroke="white" stroke-width="2"/>
+                </svg>
+              </div>
+              <h3>現場のお告げ</h3>
+              <p>建設現場あるあるの名言をランダムで表示。現場の職人さんに刺さる一言が毎日届く。</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon feature-icon-teal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M22 12H18L15 21L9 3L6 12H2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>現場トレカ</h3>
+              <p>建設現場の職種をトレーディングカード風に紹介。レア度やスキルをゲーム風に表現。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="testimonials" id="about">
+    <div class="testimonials-inner">
+      <div class="testimonial-quote-mark">&ldquo;</div>
+      <div class="section-heading section-heading-left">
+        <p class="section-tag">About</p>
+        <h2>コードを書かない開発者です</h2>
+      </div>
+      <div class="testimonial-cards">
+        <div class="testimonial-card">
+          <div class="testimonial-logo">💻 AI開発</div>
+          <p class="testimonial-text">Claude Codeを使って、会話だけでWebアプリを開発。プログラミング経験ゼロから始めました。</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"></div>
+            <div>
+              <p class="testimonial-name">Webアプリ開発</p>
+              <p class="testimonial-role">Claude Code × Next.js</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-logo">📝 情報発信</div>
+          <p class="testimonial-text">noteで記事を毎週投稿。AIアプリ開発の過程やノウハウをカジュアルに発信中。</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"></div>
+            <div>
+              <p class="testimonial-name">note記事執筆</p>
+              <p class="testimonial-role">AI × 副業 × 建設業</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-logo">🏗️ 建設業</div>
+          <p class="testimonial-text">本業は建設業。現場の経験を活かして、業界に特化したアプリやコンテンツを作っています。</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"></div>
+            <div>
+              <p class="testimonial-name">建設 × テック</p>
+              <p class="testimonial-role">現場目線のものづくり</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== METRICS ========== -->
+  <section class="metrics" id="numbers">
+    <div class="container metrics-inner">
+      <div class="section-heading section-heading-left">
+        <p class="section-tag">Numbers</p>
+        <h2>これまでの実績</h2>
+        <p class="section-desc">2025年から副業を開始。AIの力でコードを書かずにアプリを作り続けています。</p>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <h3 class="metric-number">3</h3>
+          <p class="metric-label">公開アプリ</p>
+        </div>
+        <div class="metric-item">
+          <h3 class="metric-number">5</h3>
+          <p class="metric-label">note記事</p>
+        </div>
+        <div class="metric-item">
+          <h3 class="metric-number">0行</h3>
+          <p class="metric-label">手書きコード</p>
+        </div>
+        <div class="metric-item">
+          <h3 class="metric-number">6ヶ月</h3>
+          <p class="metric-label">ロードマップ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TOOLS ========== -->
+  <section class="logo-clouds-2">
+    <div class="container">
+      <hr class="divider">
+      <p class="logo-clouds-text" style="margin-bottom: 24px;">noteで発信中のテーマ</p>
+      <div class="logo-grid">
+        <div class="logo-item">AI副業</div>
+        <div class="logo-item">Claude Code</div>
+        <div class="logo-item">ノーコード開発</div>
+        <div class="logo-item">建設テック</div>
+        <div class="logo-item">アプリ開発</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta" id="contact">
+    <div class="cta-inner">
+      <div class="cta-content">
+        <h2>一緒にAIで<br>何か作りませんか？</h2>
+        <p>アプリ開発の相談、コラボ、お仕事の依頼など、お気軽にどうぞ。Xからお待ちしています。</p>
+        <div class="cta-buttons">
+          <a href="https://x.com/techio_code" class="btn btn-white" target="_blank">Xでメッセージ</a>
+          <a href="https://note.com/techio_code" class="btn btn-outline-white" target="_blank">noteを読む</a>
+        </div>
+      </div>
+      <div class="cta-image">
+        <div class="cta-mockup">
+          <div class="cta-emoji">🚀</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <a href="#" class="logo logo-white">
+          <div class="logomark">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="#7C3AED"/>
+              <text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="bold">T</text>
+            </svg>
+          </div>
+          <span class="logo-text">てちお</span>
+        </a>
+        <p class="footer-desc">コード知識ゼロでもAIがあればアプリは作れる。そんな時代の開発者です。</p>
+        <div class="footer-social">
+          <a href="https://x.com/techio_code" class="social-link" target="_blank">X (Twitter)</a>
+          <a href="https://note.com/techio_code" class="social-link" target="_blank">note</a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <p class="footer-copy">&copy; 2025 てちお. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
