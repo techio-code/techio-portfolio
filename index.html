@@ -1,435 +1,1640 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9X3M3V53D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-D9X3M3V53D');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>てちお | コード0でアプリを作る人</title>
-  <meta name="description" content="コード知識ゼロ、AIだけでWebアプリを作る人。建設業で働きながらClaude Codeを相棒にアプリ開発中。">
-  <!-- OGP -->
-  <meta property="og:title" content="てちお | コード0でアプリを作る人">
-  <meta property="og:description" content="コード知識ゼロ、AIだけでWebアプリを作る人。建設業で働きながらClaude Codeを相棒にアプリ開発中。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://techio-code.github.io/techio-portfolio/">
-  <meta property="og:image" content="https://techio-code.github.io/techio-portfolio/ogp.png">
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@techio_code">
-  <meta name="twitter:title" content="てちお | コード0でアプリを作る人">
-  <meta name="twitter:description" content="コード知識ゼロ、AIだけでWebアプリを作る人。建設業で働きながらClaude Codeを相棒にアプリ開発中。">
-  <meta name="twitter:image" content="https://techio-code.github.io/techio-portfolio/ogp.png">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%237C3AED'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>T</text></svg>">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>茶寮 てちお — 一服のAI、現場の作法で。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root {
+    --kinari: #F5EFE3;      /* 生成り background */
+    --kinari-2: #EEE6D4;    /* slightly deeper paper */
+    --sumi: #1A1A1A;        /* 墨黒 text */
+    --sumi-soft: #2E2A26;   
+    --tsuchi: #A89684;      /* 土壁 mid-tone */
+    --tsuchi-light: #C9BDA9;
+    --matcha: #5C7B3E;      /* 抹茶 line only */
+    --rousoku: #FBC97A;     /* ろうそく warm light */
+    --paper-shadow: rgba(26,26,26,0.06);
+
+    --sp-0: 8px;
+    --sp-1: 16px;
+    --sp-2: 24px;
+    --sp-3: 40px;
+    --sp-4: 64px;
+    --sp-5: 96px;
+    --sp-6: 160px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--kinari); color: var(--sumi); }
+  body {
+    font-family: "Noto Sans JP", -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.9;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Fine paper grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(26,26,26,0.015) 0, transparent 60%),
+      radial-gradient(circle at 80% 70%, rgba(168,150,132,0.04) 0, transparent 55%);
+    mix-blend-mode: multiply;
+  }
+
+  .en {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .en-lower { text-transform: none; font-style: italic; letter-spacing: 0.08em; }
+
+  .mincho { font-family: "Noto Serif JP", serif; }
+  .vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.18em;
+  }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 48px;
+    z-index: 50;
+    mix-blend-mode: multiply;
+  }
+  .nav-brand {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.3em;
+  }
+  .nav-brand .en-sub {
+    display: block;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    margin-top: 2px;
+    color: var(--tsuchi);
+  }
+  .nav-links {
+    display: flex; gap: 36px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    font-family: "Cormorant Garamond", serif;
+    text-transform: uppercase;
+  }
+  .nav-links a { color: var(--sumi); text-decoration: none; opacity: 0.7; transition: opacity 0.3s; }
+  .nav-links a:hover { opacity: 1; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* Shoji (paper screen) layered light gradient */
+  .shoji-bg {
+    position: absolute; inset: 0;
+    z-index: -3;
+    background:
+      linear-gradient(180deg,
+        #FAF4E8 0%,
+        #F5EFE3 35%,
+        #EEE6D4 70%,
+        #E4D9C1 100%);
+  }
+  /* Soft window glow */
+  .shoji-glow {
+    position: absolute;
+    top: -10%; left: 20%;
+    width: 60%; height: 90%;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(251, 201, 122, 0.35) 0%,
+        rgba(251, 201, 122, 0.12) 30%,
+        transparent 65%);
+    filter: blur(30px);
+  }
+  /* Shoji grid lines */
+  .shoji-grid {
+    position: absolute; inset: 0;
+    z-index: -1;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(to right, rgba(168,150,132,0.22) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(168,150,132,0.22) 1px, transparent 1px);
+    background-size: 18% 12%;
+    filter: blur(0.3px);
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+  }
+  .shoji-grid-2 {
+    position: absolute; inset: 0;
+    z-index: -1;
+    opacity: 0.18;
+    background-image:
+      linear-gradient(to right, rgba(26,26,26,0.4) 1px, transparent 1px);
+    background-size: 6% 100%;
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7) 100%);
+  }
+
+  /* Leaf shadow layers (parallax) */
+  .leaf-layer {
+    position: absolute; inset: -10%;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .leaf {
+    position: absolute;
+    background: var(--sumi);
+    opacity: 0;
+    border-radius: 50% 10% 50% 10%;
+    filter: blur(8px);
+    mix-blend-mode: multiply;
+  }
+  .leaf.back { filter: blur(14px); opacity: 0.08; }
+  .leaf.mid  { filter: blur(9px);  opacity: 0.13; }
+  .leaf.front { filter: blur(6px); opacity: 0.18; }
+
+  .hero-inner {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 8%;
+    z-index: 2;
+  }
+
+  .hero-side-left {
+    align-self: end;
+    padding-bottom: 80px;
+  }
+  .hero-side-left .meta {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--tsuchi);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .hero-side-left .meta span {
+    display: inline-block;
+    padding-top: 60px;
+    border-top: 1px solid var(--tsuchi-light);
+    margin-top: 8px;
+  }
+
+  .hero-center {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    justify-content: center;
+  }
+
+  .kv-catch {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: clamp(46px, 6vw, 88px);
+    letter-spacing: 0.25em;
+    line-height: 1.15;
+    color: var(--sumi);
+    height: 560px;
+    position: relative;
+  }
+  .kv-catch .accent {
+    color: var(--matcha);
+    font-size: 0.55em;
+    letter-spacing: 0.3em;
+  }
+  .kv-catch .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--matcha);
+    border-radius: 50%;
+    margin: 8px 0;
+  }
+
+  .kv-seal {
+    width: 86px; height: 86px;
+    border: 1px solid var(--matcha);
+    display: grid; place-items: center;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    color: var(--matcha);
+    letter-spacing: 0.1em;
+    writing-mode: vertical-rl;
+    font-size: 14px;
+    padding: 8px 0;
+    position: relative;
+  }
+  .kv-seal::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 1px solid var(--matcha);
+    opacity: 0.4;
+  }
+
+  .hero-side-right {
+    align-self: end;
+    padding-bottom: 80px;
+    text-align: right;
+  }
+  .hero-side-right .en-sub {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--sumi-soft);
+    max-width: 220px;
+    line-height: 1.7;
+    margin-left: auto;
+  }
+  .hero-side-right .en-meta {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--tsuchi);
+    text-transform: uppercase;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--tsuchi-light);
+    display: inline-block;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--tsuchi);
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-hint .line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--tsuchi-light), transparent);
+    animation: scrollLine 2.4s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* Candle light — subtle breathing orb */
+  .candle {
+    position: absolute;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    bottom: 10%;
+    right: 4%;
+    background: radial-gradient(circle, rgba(251,201,122,0.6) 0%, rgba(251,201,122,0.1) 40%, transparent 70%);
+    filter: blur(20px);
+    animation: breathe 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  @keyframes breathe {
+    0%,100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.02); opacity: 1; }
+  }
+
+  /* ===== SECTION COMMON ===== */
+  .section {
+    position: relative;
+    padding: var(--sp-6) 12%;
+  }
+  .eyebrow {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--matcha);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 32px; height: 1px;
+    background: var(--matcha);
+  }
+  .section-no {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 72px;
+    color: var(--tsuchi-light);
+    line-height: 1;
+    position: absolute;
+    top: 100px;
+    right: 8%;
+    opacity: 0.6;
+  }
+
+  /* ===== STORY SECTION ===== */
+  .story {
+    background: var(--kinari);
+    padding: var(--sp-6) 14%;
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 120px;
+    align-items: center;
+  }
+  .story-quote {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 2.2;
+    letter-spacing: 0.2em;
+    color: var(--sumi);
+    height: 520px;
+    margin-left: auto;
+    position: relative;
+  }
+  .story-quote::before {
+    content: "";
+    position: absolute;
+    top: 0; right: -30px;
+    width: 1px; height: 80px;
+    background: var(--matcha);
+  }
+  .story-body {
+    max-width: 420px;
+  }
+  .story-body .eyebrow { margin-bottom: 28px; }
+  .story-body h2 {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+  .story-body p {
+    color: var(--sumi-soft);
+    font-size: 14px;
+    line-height: 2.1;
+    margin-bottom: 20px;
+  }
+  .story-body .signature {
+    margin-top: 40px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--tsuchi);
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== SEASONAL MENU ===== */
+  .menu {
+    background: var(--kinari-2);
+    padding: var(--sp-6) 10%;
+    position: relative;
+  }
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+  .menu-header h2 {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 44px;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+  }
+  .menu-header .season {
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--tsuchi);
+  }
+  .menu-header .season strong {
+    display: block;
+    font-size: 22px;
+    font-style: normal;
+    letter-spacing: 0.3em;
+    color: var(--matcha);
+    margin-bottom: 6px;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+  }
+  .menu-card {
+    background: var(--kinari);
+    padding: 56px 40px 48px;
+    position: relative;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .menu-card:hover { box-shadow: 0 18px 44px rgba(26,26,26,0.07); }
+  .menu-card.featured { background: #FBF7ED; }
+  .menu-card.featured::after {
+    content: "意匠の実験";
+    position: absolute;
+    top: 16px; right: 16px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--matcha);
+    text-transform: uppercase;
+  }
+  .arrow-link {
+    font-family: "Noto Serif JP", serif !important;
+    font-size: 14px !important;
+    color: var(--matcha) !important;
+    letter-spacing: 0.3em !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .arrow-link small { font-family: "Cormorant Garamond", serif; font-size: 14px; font-style: italic; }
+
+  /* Chapter dividers */
+  .chapter {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 36px;
+    margin: 80px 0 48px;
+  }
+  .chapter:first-of-type { margin-top: 0; }
+  .chapter-num {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.5em;
+    color: var(--tsuchi);
+  }
+  .chapter-title {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 0.25em;
+    color: var(--sumi);
+  }
+  .chapter-rule {
+    height: 1px;
+    background: linear-gradient(to right, var(--matcha), transparent);
+  }
+  .chapter-en {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--tsuchi);
+    text-transform: uppercase;
+  }
+
+  /* Weekly rhythm strip */
+  .rhythm {
+    margin: 80px 12% 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-top: 1px solid var(--tsuchi-light);
+    border-bottom: 1px solid var(--tsuchi-light);
+  }
+  .rhythm-item {
+    padding: 28px 0;
+    text-align: center;
+    border-right: 1px solid var(--tsuchi-light);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: background 0.3s;
+  }
+  .rhythm-item:last-child { border-right: none; }
+  .rhythm-item:hover { background: rgba(251,201,122,0.15); }
+  .rhythm-item .d {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--sumi);
+    letter-spacing: 0.1em;
+  }
+  .rhythm-item .l {
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--sumi-soft);
+  }
+  .rhythm-item .en-s {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--tsuchi);
+    text-transform: uppercase;
+  }
+  .menu-card::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid var(--matcha);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .menu-card:hover::before { opacity: 0.5; }
+  .menu-card:hover { transform: translateY(-4px); }
+
+  .menu-card .num {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--tsuchi);
+    letter-spacing: 0.3em;
+  }
+  .menu-card .title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 0.25em;
+    line-height: 1.3;
+    height: 260px;
+    margin: 24px 0;
+    color: var(--sumi);
+  }
+  .menu-card .desc {
+    font-size: 13px;
+    color: var(--sumi-soft);
+    line-height: 2;
+    letter-spacing: 0.1em;
+    max-width: 180px;
+  }
+  .menu-card .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    margin-top: 24px;
+    border-top: 1px solid var(--tsuchi-light);
+  }
+  .menu-card .price {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    color: var(--sumi);
+    letter-spacing: 0.1em;
+  }
+  .menu-card .price small { font-size: 11px; color: var(--tsuchi); letter-spacing: 0.3em; margin-left: 4px; }
+  .menu-card .en-label {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--tsuchi);
+    letter-spacing: 0.2em;
+  }
+
+  /* ===== INTERIOR ===== */
+  .interior {
+    background: var(--kinari);
+    padding: var(--sp-6) 0 var(--sp-6);
+    overflow: hidden;
+    position: relative;
+  }
+  .interior-title {
+    padding: 0 12% 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .interior-title h2 {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 44px;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+  }
+  .interior-title p {
+    font-size: 13px;
+    color: var(--sumi-soft);
+    line-height: 2.2;
+    max-width: 380px;
+  }
+
+  .interior-stage {
+    position: relative;
+    height: 620px;
+    margin: 0 8%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #E8DFC9 0%, #D4C8AE 50%, #BFAE90 100%);
+  }
+  /* Placeholder stripes (no generated SVG imagery) */
+  .photo-placeholder {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(26,26,26,0.04) 0px,
+        rgba(26,26,26,0.04) 2px,
+        transparent 2px,
+        transparent 22px
+      );
+  }
+  .photo-label {
+    position: absolute;
+    bottom: 24px; left: 24px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 11px;
+    color: rgba(26,26,26,0.5);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .interior-caption {
+    position: absolute;
+    top: 50%; right: 48px;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.25em;
+    color: var(--kinari);
+    height: 360px;
+    line-height: 2;
+    z-index: 3;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.2);
+  }
+  /* parallax leaf over interior */
+  .interior-leaves {
+    position: absolute;
+    inset: -10%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .interior-leaves .leaf { background: #1A1A1A; }
+
+  .interior-bottom {
+    padding: 60px 12% 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 60px;
+    align-items: center;
+  }
+  .interior-bottom .detail {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--tsuchi);
+    letter-spacing: 0.1em;
+  }
+  .interior-bottom .rule {
+    height: 1px;
+    background: var(--tsuchi-light);
+  }
+
+  /* ===== ACCESS ===== */
+  .access {
+    background: var(--kinari-2);
+    padding: var(--sp-6) 14%;
+  }
+  .access-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+  }
+  .access h2 {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 44px;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    margin-top: 24px;
+    margin-bottom: 40px;
+  }
+  .access-address {
+    font-family: "Noto Serif JP", serif;
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    line-height: 2;
+    color: var(--sumi);
+    margin-bottom: 24px;
+  }
+  .access-note {
+    font-size: 12px;
+    color: var(--tsuchi);
+    letter-spacing: 0.15em;
+    margin-bottom: 40px;
+  }
+  .access .en-coord {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--sumi-soft);
+    letter-spacing: 0.08em;
+    line-height: 1.9;
+  }
+
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .hours-table tr {
+    border-bottom: 1px solid var(--tsuchi-light);
+  }
+  .hours-table tr:first-child { border-top: 1px solid var(--tsuchi-light); }
+  .hours-table td {
+    padding: 22px 0;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    vertical-align: middle;
+  }
+  .hours-table td:first-child {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 500;
+    width: 40%;
+  }
+  .hours-table td:last-child {
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    color: var(--sumi-soft);
+    letter-spacing: 0.1em;
+  }
+  .hours-table td .closed {
+    font-family: "Noto Serif JP", serif;
+    font-size: 12px;
+    color: var(--matcha);
+    letter-spacing: 0.3em;
+  }
+
+  .access-cta {
+    margin-top: 48px;
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--matcha);
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    color: var(--matcha);
+    cursor: pointer;
+    transition: gap 0.3s;
+  }
+  .access-cta:hover { gap: 28px; }
+  .access-cta .arrow { font-family: "Cormorant Garamond", serif; font-style: italic; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--kinari);
+    padding: 80px 12% 40px;
+    border-top: 1px solid var(--tsuchi-light);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer-brand {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.4em;
+  }
+  .footer-brand .sub {
+    display: block;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    margin-top: 8px;
+    color: var(--tsuchi);
+    font-style: italic;
+  }
+  .footer-meta {
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--tsuchi);
+    letter-spacing: 0.15em;
+    line-height: 1.9;
+  }
+
+  /* ===== TWEAKS PANEL ===== */
+  .tweaks {
+    display: none;
+    position: fixed;
+    right: 20px; bottom: 20px;
+    width: 280px;
+    background: var(--kinari);
+    border: 1px solid var(--sumi);
+    padding: 20px;
+    z-index: 100;
+    font-size: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .tweaks.active { display: block; }
+  .tweaks h3 {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--tsuchi-light);
+  }
+  .tweak-row { margin-bottom: 14px; }
+  .tweak-row label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+    color: var(--sumi-soft);
+  }
+  .tweak-row select, .tweak-row input[type="range"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 4px 6px;
+    background: var(--kinari-2);
+    border: 1px solid var(--tsuchi-light);
+    color: var(--sumi);
+  }
+  .tweak-row input[type="checkbox"] {
+    margin-right: 8px;
+  }
+
+  /* Theme variations */
+  body.theme-evening {
+    --kinari: #EADFC9;
+    --kinari-2: #E0D3B7;
+    --sumi: #1A1A1A;
+    --tsuchi: #8F7B66;
+  }
+  body.theme-morning {
+    --kinari: #FBF7ED;
+    --kinari-2: #F5EFE3;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      padding: 100px 24px 60px;
+      gap: 40px;
+    }
+    .hero-side-left, .hero-side-right { padding: 0; text-align: left; }
+    .hero-side-right .en-sub { margin-left: 0; }
+    .kv-catch {
+      writing-mode: horizontal-tb;
+      font-size: 40px;
+      height: auto;
+      letter-spacing: 0.12em;
+    }
+    .hero-center { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .section, .story, .menu, .access { padding: 80px 24px; }
+    .story-grid, .access-inner { grid-template-columns: 1fr; gap: 40px; }
+    .story-quote {
+      writing-mode: horizontal-tb;
+      height: auto;
+      font-size: 20px;
+      line-height: 1.9;
+      margin: 0;
+    }
+    .story-quote::before { display: none; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-header { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .menu-card .title { writing-mode: horizontal-tb; height: auto; font-size: 22px; margin: 16px 0; }
+    .menu-card { min-height: auto; padding: 36px 28px; }
+    .chapter { grid-template-columns: 1fr; gap: 8px; margin: 48px 0 24px; }
+    .chapter-rule { display: none; }
+    .rhythm { grid-template-columns: repeat(7, 1fr); margin: 48px 0 0; }
+    .rhythm-item { padding: 16px 0; }
+    .rhythm-item .d { font-size: 16px; }
+    .rhythm-item .l { font-size: 11px; letter-spacing: 0.15em; }
+    .rhythm-item .en-s { display: none; }
+    .interior-title { grid-template-columns: 1fr; padding: 0 24px 40px; gap: 24px; }
+    .interior-stage { margin: 0; height: 360px; }
+    .interior-caption { writing-mode: horizontal-tb; height: auto; top: auto; bottom: 24px; right: 24px; left: 24px; font-size: 14px; }
+    .interior-bottom { grid-template-columns: 1fr; padding: 40px 24px 0; gap: 20px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .footer-meta { text-align: left; }
+    .leaf-layer { display: none; }
+    .section-no { font-size: 48px; top: 40px; right: 24px; }
+  }
+</style>
 </head>
-<body>
+<body data-screen-label="Saryo Techio Portfolio">
 
-  <!-- ========== NAVBAR ========== -->
-  <nav class="navbar" id="navbar">
-    <div class="navbar-inner">
-      <div class="nav-left">
-        <a href="#" class="logo">
-          <div class="logomark">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <rect width="32" height="32" rx="8" fill="#7C3AED"/>
-              <text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="bold">T</text>
-            </svg>
-          </div>
-          <span class="logo-text">てちお</span>
-        </a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#works" onclick="closeMenu()">作品</a></li>
-          <li><a href="#about" onclick="closeMenu()">できること</a></li>
-          <li><a href="#numbers" onclick="closeMenu()">実績</a></li>
-          <li><a href="#connect" onclick="closeMenu()">SNS</a></li>
-        </ul>
-      </div>
-      <div class="nav-right">
-        <a href="https://note.com/techio_note" class="btn btn-primary btn-sm nav-cta" target="_blank" rel="noopener noreferrer">noteを読む</a>
-        <button class="hamburger" id="hamburger" aria-label="メニューを開く">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ========== HERO ========== -->
-  <section class="hero">
-    <canvas class="hero-particles" id="particles"></canvas>
-    <div class="hero-glow hero-glow-1"></div>
-    <div class="hero-glow hero-glow-2"></div>
-    <div class="hero-inner">
-      <div class="hero-avatar">
-        <div class="avatar-circle">T</div>
-      </div>
-      <h1 class="hero-name">てちお</h1>
-      <p class="hero-catch">コード知識ゼロで、アプリを作る人</p>
-      <p class="hero-sub">建設業で働きながら、AIの力だけでWebアプリを開発中。<br>Claude Codeを相棒に、アイデアを形にしています。</p>
-      <div class="hero-social">
-        <a href="https://x.com/techio_code" target="_blank" rel="noopener noreferrer" class="hero-social-link" aria-label="X">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://www.threads.com/@techio_code" target="_blank" rel="noopener noreferrer" class="hero-social-link" aria-label="Threads">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007C5.965 24 2.634 20.204 2.634 16.021V7.98C2.634 3.796 5.965 0 12.186 0h.007c6.22 0 9.18 3.796 9.18 7.98v8.04c0 4.184-2.96 7.98-9.18 7.98h-.007zm.007-22.5c-5.258 0-8.059 3.015-8.059 6.48v8.04c0 3.465 2.8 6.48 8.059 6.48h.007c5.258 0 7.68-3.015 7.68-6.48V7.98c0-3.465-2.422-6.48-7.68-6.48h-.007zM12 18.75c-3.17 0-5.25-2.355-5.25-5.25v-3c0-2.895 2.08-5.25 5.25-5.25s5.25 2.355 5.25 5.25v3c0 2.895-2.08 5.25-5.25 5.25zm0-12c-2.34 0-3.75 1.605-3.75 3.75v3c0 2.145 1.41 3.75 3.75 3.75s3.75-1.605 3.75-3.75v-3c0-2.145-1.41-3.75-3.75-3.75z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/techio_code/" target="_blank" rel="noopener noreferrer" class="hero-social-link" aria-label="Instagram">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-        <a href="https://note.com/techio_note" target="_blank" rel="noopener noreferrer" class="hero-social-link" aria-label="note">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 4.5v15a2.5 2.5 0 01-2.5 2.5h-15A2.5 2.5 0 012 19.5v-15A2.5 2.5 0 014.5 2h15A2.5 2.5 0 0122 4.5zM7 7h4v2H7V7zm0 4h10v2H7v-2zm0 4h10v2H7v-2z"/></svg>
-        </a>
-      </div>
-      <div class="hero-ctas">
-        <a href="#works" class="btn btn-primary">作品を見る</a>
-        <a href="https://note.com/techio_note" class="btn btn-outline" target="_blank" rel="noopener noreferrer">noteを読む</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== TECH STACK ========== -->
-  <section class="tech-stack">
-    <div class="container">
-      <p class="tech-label">使っている技術・ツール</p>
-      <div class="tech-grid">
-        <div class="tech-item">Claude Code</div>
-        <div class="tech-item">GitHub Pages</div>
-        <div class="tech-item">Figma</div>
-        <div class="tech-item">Notion</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== WORKS ========== -->
-  <section class="works" id="works">
-    <div class="container">
-      <div class="section-heading">
-        <span class="section-tag">Works</span>
-        <h2>AIだけで作ったアプリたち</h2>
-        <p class="section-desc">コードは1行も自分で書いていません</p>
-      </div>
-      <div class="works-grid">
-        <a href="https://techio-code.github.io/quest-timer/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">⚔️</div>
-          <h3 class="work-title">クエストタイマー</h3>
-          <p class="work-desc">タスクをクエストに変えるゲーム風ポモドーロタイマー</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/ikukyu-simulator/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">👶</div>
-          <h3 class="work-title">育休シミュレーター</h3>
-          <p class="work-desc">育休取得時の給付金・収入変化をシミュレーション</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/ky-generator/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">⚠️</div>
-          <h3 class="work-title">現場KYジェネレーター</h3>
-          <p class="work-desc">天気連動で危険予知シートを自動生成</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/doujin-keisan/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">📚</div>
-          <h3 class="work-title">同人誌損益計算</h3>
-          <p class="work-desc">同人誌頒布の収支・部数ごとの損益分岐点を計算</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/choji-generator/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">🕯️</div>
-          <h3 class="work-title">弔辞ジェネレーター</h3>
-          <p class="work-desc">故人との関係や思い出から弔辞・弔電を自動生成</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/jikoshokai-generator/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">👤</div>
-          <h3 class="work-title">自己紹介ジェネレーター</h3>
-          <p class="work-desc">6シーン x 4トーンの自己紹介文を自動生成</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/travel-planner/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">✈️</div>
-          <h3 class="work-title">旅プランジェネレーター</h3>
-          <p class="work-desc">行き先・日数・予算から旅行プランを自動作成</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/note-analyzer/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">📊</div>
-          <h3 class="work-title">note記事解剖グラフ</h3>
-          <p class="work-desc">note記事の構成・文字数・見出し分布をグラフで可視化</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/kabu-prompt-generator/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">📈</div>
-          <h3 class="work-title">株分析ジェネレーター</h3>
-          <p class="work-desc">銘柄情報を入力してAI株分析用プロンプトを自動生成</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/renrakucho-generator/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">📝</div>
-          <h3 class="work-title">保育士向けAI連絡帳</h3>
-          <p class="work-desc">子どもの様子を入力するだけで連絡帳文章を自動生成</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/puchipuchi-asmr/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">🫧</div>
-          <h3 class="work-title">プチプチASMR</h3>
-          <p class="work-desc">画面のプチプチを無限に潰せる癒し系ASMRアプリ</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <a href="https://techio-code.github.io/takibi-asmr/" target="_blank" rel="noopener noreferrer" class="work-card fade-up">
-          <div class="work-emoji">🔥</div>
-          <h3 class="work-title">焚火ASMR</h3>
-          <p class="work-desc">焚き火の映像と音で癒されるリラックス系ASMRアプリ</p>
-          <span class="work-link">使ってみる →</span>
-        </a>
-        <div class="work-card fade-up work-card-disabled">
-          <div class="work-badge badge-soon">近日公開</div>
-          <div class="work-emoji">💼</div>
-          <h3 class="work-title">人事評価コメントジェネレーター</h3>
-          <p class="work-desc">評価項目と実績を入力して人事評価コメントを自動生成</p>
-          <span class="work-link work-link-disabled">準備中...</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== ABOUT ========== -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="section-heading">
-        <span class="section-tag">About</span>
-        <h2>できること</h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-card fade-up">
-          <div class="about-icon">💻</div>
-          <h3>AI開発</h3>
-          <p>Claude Codeで会話だけでWebアプリ開発。プログラミング経験ゼロから。</p>
-        </div>
-        <div class="about-card fade-up">
-          <div class="about-icon">📝</div>
-          <h3>情報発信</h3>
-          <p>noteで毎週投稿。AIアプリ開発の過程やノウハウをカジュアルに発信中。</p>
-        </div>
-        <div class="about-card fade-up">
-          <div class="about-icon">🏗️</div>
-          <h3>建設業 x テック</h3>
-          <p>本業は建設業。現場経験を活かした業界特化アプリ・コンテンツ。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== NUMBERS ========== -->
-  <section class="numbers" id="numbers">
-    <div class="container">
-      <div class="section-heading">
-        <span class="section-tag">Numbers</span>
-        <h2>これまでの実績</h2>
-      </div>
-      <div class="numbers-grid">
-        <div class="number-item fade-up">
-          <span class="number-value">13</span>
-          <span class="number-label">公開アプリ</span>
-        </div>
-        <div class="number-item fade-up">
-          <span class="number-value">0行</span>
-          <span class="number-label">手書きコード</span>
-        </div>
-        <div class="number-item fade-up">
-          <span class="number-value">2.5h</span>
-          <span class="number-label">平均開発時間</span>
-        </div>
-        <div class="number-item fade-up">
-          <span class="number-value">¥3,000<span class="number-unit">/月</span></span>
-          <span class="number-label">開発コスト</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CONNECT ========== -->
-  <section class="connect" id="connect">
-    <div class="container">
-      <div class="section-heading">
-        <span class="section-tag">Connect</span>
-        <h2>つながる</h2>
-      </div>
-      <div class="connect-grid">
-        <a href="https://x.com/techio_code" target="_blank" rel="noopener noreferrer" class="connect-card fade-up">
-          <div class="connect-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </div>
-          <h3>X (Twitter)</h3>
-          <p class="connect-handle">@techio_code</p>
-          <p class="connect-desc">認知拡大・最新情報</p>
-        </a>
-        <a href="https://www.threads.com/@techio_code" target="_blank" rel="noopener noreferrer" class="connect-card fade-up">
-          <div class="connect-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007C5.965 24 2.634 20.204 2.634 16.021V7.98C2.634 3.796 5.965 0 12.186 0h.007c6.22 0 9.18 3.796 9.18 7.98v8.04c0 4.184-2.96 7.98-9.18 7.98h-.007zm.007-22.5c-5.258 0-8.059 3.015-8.059 6.48v8.04c0 3.465 2.8 6.48 8.059 6.48h.007c5.258 0 7.68-3.015 7.68-6.48V7.98c0-3.465-2.422-6.48-7.68-6.48h-.007zM12 18.75c-3.17 0-5.25-2.355-5.25-5.25v-3c0-2.895 2.08-5.25 5.25-5.25s5.25 2.355 5.25 5.25v3c0 2.895-2.08 5.25-5.25 5.25zm0-12c-2.34 0-3.75 1.605-3.75 3.75v3c0 2.145 1.41 3.75 3.75 3.75s3.75-1.605 3.75-3.75v-3c0-2.145-1.41-3.75-3.75-3.75z"/></svg>
-          </div>
-          <h3>Threads</h3>
-          <p class="connect-handle">@techio_code</p>
-          <p class="connect-desc">共感・対話</p>
-        </a>
-        <a href="https://www.instagram.com/techio_code/" target="_blank" rel="noopener noreferrer" class="connect-card fade-up">
-          <div class="connect-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          </div>
-          <h3>Instagram</h3>
-          <p class="connect-handle">@techio_code</p>
-          <p class="connect-desc">ビジュアル投稿</p>
-        </a>
-        <a href="https://note.com/techio_note" target="_blank" rel="noopener noreferrer" class="connect-card fade-up">
-          <div class="connect-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 4.5v15a2.5 2.5 0 01-2.5 2.5h-15A2.5 2.5 0 012 19.5v-15A2.5 2.5 0 014.5 2h15A2.5 2.5 0 0122 4.5zM7 7h4v2H7V7zm0 4h10v2H7v-2zm0 4h10v2H7v-2z"/></svg>
-          </div>
-          <h3>note</h3>
-          <p class="connect-handle">techio_note</p>
-          <p class="connect-desc">収益化の本丸（有料記事）</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CTA ========== -->
-  <section class="cta" id="contact">
-    <div class="container">
-      <div class="cta-inner fade-up">
-        <h2>一緒にAIで<br>何か作りませんか？</h2>
-        <p>アプリ開発の相談、コラボ、お仕事の依頼など、お気軽にどうぞ。<br>ココナラでもサービス提供中です。</p>
-        <div class="cta-buttons">
-          <a href="https://coconala.com/users/5973760" class="btn btn-white" target="_blank" rel="noopener noreferrer">ココナラでサービスを見る</a>
-          <a href="https://x.com/techio_code" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Xでメッセージ</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-left">
-          <a href="#" class="logo">
-            <div class="logomark">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="#7C3AED"/>
-                <text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="bold">T</text>
-              </svg>
-            </div>
-            <span class="logo-text">てちお</span>
-          </a>
-          <p class="footer-desc">コード知識ゼロでもAIがあればアプリは作れる。<br>そんな時代の開発者です。</p>
-        </div>
-        <div class="footer-links">
-          <a href="https://x.com/techio_code" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://www.threads.com/@techio_code" target="_blank" rel="noopener noreferrer">Threads</a>
-          <a href="https://www.instagram.com/techio_code/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://note.com/techio_note" target="_blank" rel="noopener noreferrer">note</a>
-          <a href="https://coconala.com/users/5973760" target="_blank" rel="noopener noreferrer">coconala</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 てちお. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // ハンバーガーメニュー
-    const hamburger = document.getElementById('hamburger');
-    const navbar = document.getElementById('navbar');
-    hamburger.addEventListener('click', () => {
-      navbar.classList.toggle('nav-open');
-    });
-    function closeMenu() {
-      navbar.classList.remove('nav-open');
-    }
-
-    // ナビバー背景変更（スクロール時）
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // IntersectionObserver フェードインアニメーション
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up, .section-heading').forEach(el => {
-      fadeObserver.observe(el);
-    });
-
-    // パーティクルアニメーション
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animFrame;
-
-    function resizeCanvas() {
-      canvas.width = canvas.parentElement.offsetWidth;
-      canvas.height = canvas.parentElement.offsetHeight;
-    }
-
-    function createParticles() {
-      particles = [];
-      const count = Math.floor((canvas.width * canvas.height) / 15000);
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 2 + 0.5,
-          dx: (Math.random() - 0.5) * 0.4,
-          dy: (Math.random() - 0.5) * 0.4,
-          opacity: Math.random() * 0.5 + 0.1
-        });
-      }
-    }
-
-    function drawParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(124, 58, 237, ${p.opacity})`;
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-      });
-      animFrame = requestAnimationFrame(drawParticles);
-    }
-
-    resizeCanvas();
-    createParticles();
-    drawParticles();
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      createParticles();
-    });
-  </script>
-
-  <!-- note導線 -->
-  <div style="text-align:center; padding: 24px 16px; background: rgba(255,255,255,0.05); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px;">
-    <p style="margin: 0 0 8px; font-size: 14px; color: #aaa;">このサイトを作った人の記事を読む</p>
-    <a href="https://note.com/techio_note" target="_blank" rel="noopener" style="display: inline-block; background: #6C63FF; color: white; text-decoration: none; padding: 10px 24px; border-radius: 24px; font-size: 14px; font-weight: bold; letter-spacing: 0.05em;">noteで読む &rarr;</a>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    茶寮 てちお
+    <span class="en-sub">Saryō — Techio</span>
   </div>
+  <div class="nav-links">
+    <a href="#story">物語</a>
+    <a href="#works">作品</a>
+    <a href="#studio">工房</a>
+    <a href="#contact">連絡</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="shoji-bg"></div>
+  <div class="shoji-glow"></div>
+  <div class="shoji-grid"></div>
+  <div class="shoji-grid-2"></div>
+
+  <!-- Parallax leaf shadows: 3 layers -->
+  <div class="leaf-layer" data-depth="0.15" id="leaves-back">
+    <div class="leaf back" style="top:8%;left:6%;width:180px;height:120px;transform:rotate(20deg)"></div>
+    <div class="leaf back" style="top:30%;left:72%;width:220px;height:150px;transform:rotate(-30deg)"></div>
+    <div class="leaf back" style="top:70%;left:20%;width:140px;height:90px;transform:rotate(60deg)"></div>
+    <div class="leaf back" style="top:55%;left:85%;width:110px;height:90px;transform:rotate(10deg)"></div>
+  </div>
+  <div class="leaf-layer" data-depth="0.35" id="leaves-mid">
+    <div class="leaf mid" style="top:14%;left:30%;width:130px;height:90px;transform:rotate(-15deg)"></div>
+    <div class="leaf mid" style="top:68%;left:58%;width:170px;height:110px;transform:rotate(40deg)"></div>
+    <div class="leaf mid" style="top:5%;left:88%;width:100px;height:70px;transform:rotate(25deg)"></div>
+    <div class="leaf mid" style="top:82%;left:8%;width:120px;height:80px;transform:rotate(-50deg)"></div>
+  </div>
+  <div class="leaf-layer" data-depth="0.6" id="leaves-front">
+    <div class="leaf front" style="top:20%;left:2%;width:70px;height:50px;transform:rotate(40deg)"></div>
+    <div class="leaf front" style="top:88%;left:78%;width:90px;height:60px;transform:rotate(-20deg)"></div>
+    <div class="leaf front" style="top:42%;left:46%;width:80px;height:55px;transform:rotate(70deg)"></div>
+  </div>
+
+  <div class="candle"></div>
+
+  <div class="hero-inner">
+    <div class="hero-side-left">
+      <div class="meta">
+        <span>Field &nbsp;—&nbsp; Est. Reiwa 08</span>
+      </div>
+    </div>
+
+    <div class="hero-center">
+      <div class="kv-catch" id="kvCatch">
+        一服のAI、<br>
+        <span class="dot"></span>
+        現場の作法で。
+      </div>
+      <div class="kv-seal">茶寮てちお</div>
+    </div>
+
+    <div class="hero-side-right">
+      <div class="en-sub">AI, brewed in<br>the way of<br>construction sites.</div>
+      <div class="en-meta">Field — Est. Reiwa 08</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story section" id="story">
+  <div class="section-no en-lower">i.</div>
+  <div class="story-grid">
+    <div class="story-quote" id="storyQuote">
+      <p>現場二十年、</p>
+      <p>AIにそのまま移植した。</p>
+      <p>—— 段取り、観察、</p>
+      <p>　　そして一服の間。</p>
+    </div>
+    <div class="story-body">
+      <div class="eyebrow">Our Story</div>
+      <h2>現場の作法を、<br>コードに<br>移植する。</h2>
+      <p>
+        建設業二十年。安全配慮、段取り、現場対応。
+        そこで培った「観察の細やかさ」と「問題発見力」を、
+        AIプロンプトとアプリ開発にそのまま移しています。
+      </p>
+      <p>
+        コードを書かない我が、Claude Code を相棒に、
+        一年で十八本の小さなアプリを量産しました。
+        現場で叩き上げた目にこそ、AI時代の最強の道具が宿る。
+      </p>
+      <div class="signature">— Founder, Techio / てちお</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section class="menu section" id="works">
+  <div class="section-no en-lower">ii.</div>
+  <div class="menu-header">
+    <h2>お品書き。</h2>
+    <div class="season">
+      <strong>全十八品</strong>
+      Eighteen Works, Reiwa 08
+    </div>
+  </div>
+
+  <!-- 第一章 -->
+  <div class="chapter">
+    <div class="chapter-num">第 一 章</div>
+    <div class="chapter-title">現場の便利帳</div>
+    <div class="chapter-en">I. Tools of the Field</div>
+    <div class="chapter-rule"></div>
+  </div>
+  <div class="menu-grid">
+    <a class="menu-card" href="https://techio-code.github.io/ky-generator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 01 —</div>
+        <div class="title">現場KYジェネレーター</div>
+      </div>
+      <div>
+        <p class="desc">建設現場の危険予知を、AIで三十秒。朝礼を一服に変える。</p>
+        <div class="price-row">
+          <div class="en-label">KY Generator</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/genba-go-translator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 02 —</div>
+        <div class="title">現場語翻訳機</div>
+      </div>
+      <div>
+        <p class="desc">業界用語を一般語へ。現場と事務所の、言葉の橋渡し。</p>
+        <div class="price-row">
+          <div class="en-label">Genba Translator</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/revit-glossary/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 03 —</div>
+        <div class="title">Revit／BIM用語集</div>
+      </div>
+      <div>
+        <p class="desc">建築設計者のための、手のひらサイズの辞典。</p>
+        <div class="price-row">
+          <div class="en-label">BIM Glossary</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 第二章 -->
+  <div class="chapter">
+    <div class="chapter-num">第 二 章</div>
+    <div class="chapter-title">暮らしの相談所</div>
+    <div class="chapter-en">II. The Consulting Room</div>
+    <div class="chapter-rule"></div>
+  </div>
+  <div class="menu-grid">
+    <a class="menu-card" href="https://techio-code.github.io/ikukyu-simulator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 04 —</div>
+        <div class="title">育休シミュレーター</div>
+      </div>
+      <div>
+        <p class="desc">育児休業給付金を、静かに試算。家族の段取りに。</p>
+        <div class="price-row">
+          <div class="en-label">Ikukyu Simulator</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/renrakucho-generator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 05 —</div>
+        <div class="title">保育士のAI連絡帳</div>
+      </div>
+      <div>
+        <p class="desc">一日の情景を、三秒で一文に。保育の余白を守る。</p>
+        <div class="price-row">
+          <div class="en-label">Renrakucho AI</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/choji-generator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 06 —</div>
+        <div class="title">弔辞ジェネレーター</div>
+      </div>
+      <div>
+        <p class="desc">急な別れに、品格ある言葉を。静かなAIの手伝い。</p>
+        <div class="price-row">
+          <div class="en-label">Chōji Writer</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/jikoshokai-generator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 07 —</div>
+        <div class="title">自己紹介ジェネレーター</div>
+      </div>
+      <div>
+        <p class="desc">場に応じて、自分を整える。シーン別の一枚。</p>
+        <div class="price-row">
+          <div class="en-label">Jikoshōkai</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 第三章 -->
+  <div class="chapter">
+    <div class="chapter-num">第 三 章</div>
+    <div class="chapter-title">仕事の道具箱</div>
+    <div class="chapter-en">III. The Toolbox</div>
+    <div class="chapter-rule"></div>
+  </div>
+  <div class="menu-grid">
+    <a class="menu-card" href="https://techio-code.github.io/jinji-hyoka-generator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 08 —</div>
+        <div class="title">人事評価コメント</div>
+      </div>
+      <div>
+        <p class="desc">三十分の推敲を、一分に。言い回しの作法を内蔵。</p>
+        <div class="price-row">
+          <div class="en-label">Jinji Comment</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/doujin-keisan/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 09 —</div>
+        <div class="title">同人誌損益計算</div>
+      </div>
+      <div>
+        <p class="desc">印刷・送料・頒布数。数字に心を通わせる。</p>
+        <div class="price-row">
+          <div class="en-label">Dōjin Ledger</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/kabu-prompt-generator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 10 —</div>
+        <div class="title">株分析プロンプト v2</div>
+      </div>
+      <div>
+        <p class="desc">銘柄の観察眼を、プロンプトに結晶化。</p>
+        <div class="price-row">
+          <div class="en-label">Kabu v2</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/note-analyzer/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 11 —</div>
+        <div class="title">note 解剖グラフ</div>
+      </div>
+      <div>
+        <p class="desc">記事の骨格を、透かして見る。執筆の鏡として。</p>
+        <div class="price-row">
+          <div class="en-label">Note Anatomy</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/card-generator/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 12 —</div>
+        <div class="title">SNS カード</div>
+      </div>
+      <div>
+        <p class="desc">X と Insta のための、即席の意匠。</p>
+        <div class="price-row">
+          <div class="en-label">Card Maker</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/x-post-checker/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 13 —</div>
+        <div class="title">X ポスト品質</div>
+      </div>
+      <div>
+        <p class="desc">投稿前の、静かな一呼吸。スコアで立ち止まる。</p>
+        <div class="price-row">
+          <div class="en-label">Post Checker</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/travel-planner/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 14 —</div>
+        <div class="title">旅プラン</div>
+      </div>
+      <div>
+        <p class="desc">旅程を、AIと二人で組む。余白も計画のうち。</p>
+        <div class="price-row">
+          <div class="en-label">Travel Planner</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 第四章 -->
+  <div class="chapter">
+    <div class="chapter-num">第 四 章</div>
+    <div class="chapter-title">一服の慰み</div>
+    <div class="chapter-en">IV. A Moment's Respite</div>
+    <div class="chapter-rule"></div>
+  </div>
+  <div class="menu-grid">
+    <a class="menu-card" href="https://techio-code.github.io/quest-timer/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 15 —</div>
+        <div class="title">クエストタイマー</div>
+      </div>
+      <div>
+        <p class="desc">集中を冒険に。RPG のリズムで一服を区切る。</p>
+        <div class="price-row">
+          <div class="en-label">Quest Timer</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/puchipuchi-asmr/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 16 —</div>
+        <div class="title">プチプチ ASMR</div>
+      </div>
+      <div>
+        <p class="desc">画面のなかの、気泡緩衝材。指先の小さな慰み。</p>
+        <div class="price-row">
+          <div class="en-label">Puchi ASMR</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card" href="https://techio-code.github.io/takibi-asmr/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 17 —</div>
+        <div class="title">焚火 ASMR</div>
+      </div>
+      <div>
+        <p class="desc">揺らぐ炎と、薪の呼吸。夜の手元を温める。</p>
+        <div class="price-row">
+          <div class="en-label">Takibi ASMR</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+    <a class="menu-card featured" href="https://techio-code.github.io/saryo-ka/" target="_blank" rel="noopener">
+      <div>
+        <div class="num">— 18 —</div>
+        <div class="title">茶寮 珈</div>
+      </div>
+      <div>
+        <p class="desc">Claude Design で生成した、架空ブランドの LP。意匠の実験場。</p>
+        <div class="price-row">
+          <div class="en-label">Saryō Ka (Fictional)</div>
+          <div class="price arrow-link">開く <small>↗</small></div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="interior" id="studio">
+  <div class="section-no en-lower" style="right:12%">iii.</div>
+  <div class="interior-title">
+    <h2>現場と画面の、<br>あいだに立つ。</h2>
+    <p>
+      対応領域は、AIアプリ開発・プロンプト設計・Webサイト制作・業務自動化。
+      Claude Code を主軸に据えた個人開発、現場の経験を骨組みにした実用本位。
+      意匠よりも先に、段取りを整える。
+    </p>
+  </div>
+
+  <div class="interior-stage">
+    <div class="photo-placeholder"></div>
+    <div class="interior-leaves">
+      <div class="leaf mid" style="top:5%;left:10%;width:180px;height:120px;transform:rotate(30deg);opacity:0.12"></div>
+      <div class="leaf mid" style="top:60%;left:65%;width:220px;height:140px;transform:rotate(-20deg);opacity:0.15"></div>
+      <div class="leaf front" style="top:30%;left:40%;width:110px;height:80px;transform:rotate(50deg);opacity:0.1"></div>
+    </div>
+    <div class="interior-caption">一週間のリズムで、道具を研ぐ。</div>
+    <div class="photo-label">— Placeholder : Studio photograph goes here —</div>
+  </div>
+
+  <!-- Weekly rhythm -->
+  <div class="rhythm">
+    <div class="rhythm-item"><span class="d">月</span><span class="l">調査</span><span class="en-s">Research</span></div>
+    <div class="rhythm-item"><span class="d">火</span><span class="l">開発</span><span class="en-s">Build</span></div>
+    <div class="rhythm-item"><span class="d">水</span><span class="l">開発</span><span class="en-s">Build</span></div>
+    <div class="rhythm-item"><span class="d">木</span><span class="l">執筆</span><span class="en-s">Write</span></div>
+    <div class="rhythm-item"><span class="d">金</span><span class="l">意匠</span><span class="en-s">Design</span></div>
+    <div class="rhythm-item"><span class="d">土</span><span class="l">公開</span><span class="en-s">Ship</span></div>
+    <div class="rhythm-item"><span class="d">日</span><span class="l">小話</span><span class="en-s">Reflect</span></div>
+  </div>
+
+  <div class="interior-bottom">
+    <div class="detail">AI apps · prompt design · web · automation.</div>
+    <div class="rule"></div>
+    <div class="detail">Driven by Claude Code &nbsp;·&nbsp; One person, one workshop</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="access section" id="contact">
+  <div class="section-no en-lower">iv.</div>
+  <div class="access-inner">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2>お声がけ<br>ください。</h2>
+      <div class="access-address">
+        ご相談・お仕事のご依頼は、<br>
+        X のダイレクトメッセージまで。
+      </div>
+      <div class="access-note">返信は平日夜・土日に、丁寧に差し上げます。</div>
+      <div class="en-coord">
+        Tōkyō &nbsp;·&nbsp; Somewhere on a construction site<br>
+        Reply window — Weeknights &amp; Weekends
+      </div>
+      <a class="access-cta" href="https://x.com/techio_code" target="_blank" rel="noopener">
+        @techio_code へ <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div>
+      <table class="hours-table">
+        <tr>
+          <td>X（主）</td>
+          <td><a href="https://x.com/techio_code" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">@techio_code ↗</a></td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td><a href="https://note.com/techio_note" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">techio_note ↗</a></td>
+        </tr>
+        <tr>
+          <td>GitHub</td>
+          <td><a href="https://github.com/techio-code" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">techio-code ↗</a></td>
+        </tr>
+        <tr>
+          <td>応答可能</td>
+          <td>平日 18:00 〜 / 土・日 終日</td>
+        </tr>
+      </table>
+      <p style="margin-top:40px;font-size:12px;color:var(--tsuchi);line-height:2;letter-spacing:0.15em;">
+        本業は建設の現場にて。<br>
+        副業の時間で、丁寧にお返しします。
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      茶寮 てちお
+      <span class="sub">Saryō — Techio · Field</span>
+    </div>
+    <div class="footer-meta">
+      © Reiwa 08 · Techio<br>
+      One person, one workshop — built with Claude Code</div>
+  </div>
+</footer>
+
+<!-- Tweaks -->
+<div class="tweaks" id="tweaks">
+  <h3>Tweaks</h3>
+  <div class="tweak-row">
+    <label>Color mood</label>
+    <select id="tw-theme">
+      <option value="default">昼 — Afternoon (default)</option>
+      <option value="theme-morning">朝 — Morning (brighter)</option>
+      <option value="theme-evening">夕 — Evening (dusk)</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Leaf parallax intensity</label>
+    <input type="range" id="tw-parallax" min="0" max="2" step="0.1" value="1">
+  </div>
+  <div class="tweak-row">
+    <label>Candle glow</label>
+    <input type="range" id="tw-candle" min="0" max="1" step="0.05" value="0.7">
+  </div>
+  <div class="tweak-row">
+    <label>
+      <input type="checkbox" id="tw-grid" checked> Shoji grid visible
+    </label>
+  </div>
+  <div class="tweak-row">
+    <label>Accent line color</label>
+    <select id="tw-accent">
+      <option value="#5C7B3E">抹茶 Matcha (default)</option>
+      <option value="#7A5F3E">朽葉 Kuchiba</option>
+      <option value="#3E5C7B">藍鼠 Ainezu</option>
+      <option value="#8B3E3E">蘇芳 Suō</option>
+    </select>
+  </div>
+</div>
+
+<script>
+  // ===== TWEAK DEFAULTS (editable) =====
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "theme-evening",
+    "parallax": 2,
+    "candle": 0.4,
+    "grid": true,
+    "accent": "#5C7B3E"
+  }/*EDITMODE-END*/;
+
+  // ===== GSAP scroll + parallax =====
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Parallax leaf layers on hero
+  let parallaxMult = TWEAK_DEFAULTS.parallax;
+  const leafLayers = document.querySelectorAll(".leaf-layer");
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    leafLayers.forEach(layer => {
+      const depth = parseFloat(layer.dataset.depth || 0.3) * parallaxMult;
+      layer.style.transform = `translate3d(0, ${y * depth}px, 0)`;
+    });
+  });
+
+  // Story quote: fade in from right
+  gsap.from("#storyQuote", {
+    scrollTrigger: {
+      trigger: "#storyQuote",
+      start: "top 85%",
+    },
+    x: 80, opacity: 0, duration: 1.4, ease: "power2.out"
+  });
+
+  gsap.utils.toArray(".story-body > *").forEach((el, i) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: "top 90%" },
+      y: 20, opacity: 0, duration: 0.9, delay: i * 0.08, ease: "power2.out"
+    });
+  });
+
+  gsap.utils.toArray(".menu-card").forEach((el, i) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: "top 85%" },
+      y: 40, opacity: 0, duration: 1, delay: i * 0.15, ease: "power2.out"
+    });
+  });
+
+  gsap.from(".interior-stage", {
+    scrollTrigger: { trigger: ".interior-stage", start: "top 80%" },
+    opacity: 0, scale: 1.03, duration: 1.4, ease: "power2.out"
+  });
+
+  gsap.from(".interior-caption", {
+    scrollTrigger: { trigger: ".interior-stage", start: "top 70%" },
+    opacity: 0, x: 40, duration: 1.2, delay: 0.4, ease: "power2.out"
+  });
+
+  gsap.utils.toArray(".hours-table tr").forEach((el, i) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: "top 92%" },
+      opacity: 0, y: 10, duration: 0.6, delay: i * 0.08, ease: "power2.out"
+    });
+  });
+
+  // Hero KV reveal
+  gsap.from("#kvCatch", {
+    opacity: 0, y: 30, duration: 1.8, ease: "power2.out", delay: 0.2
+  });
+  gsap.from(".kv-seal", {
+    opacity: 0, scale: 0.8, duration: 1.2, ease: "power2.out", delay: 0.9
+  });
+  gsap.from(".hero-side-left, .hero-side-right", {
+    opacity: 0, duration: 1.6, ease: "power2.out", delay: 1.2
+  });
+
+  // Interior leaves parallax
+  ScrollTrigger.create({
+    trigger: ".interior-stage",
+    start: "top bottom",
+    end: "bottom top",
+    scrub: true,
+    onUpdate: self => {
+      const leaves = document.querySelectorAll(".interior-leaves .leaf");
+      leaves.forEach((l, i) => {
+        const depth = 30 + i * 20;
+        l.style.transform = `translateY(${self.progress * -depth}px) rotate(${l.dataset.r || 0}deg)`;
+      });
+    }
+  });
+
+  // ===== Tweaks =====
+  const tweaksEl = document.getElementById("tweaks");
+  let tweakState = { ...TWEAK_DEFAULTS };
+
+  function applyTweaks() {
+    document.body.classList.remove("theme-morning", "theme-evening");
+    if (tweakState.theme && tweakState.theme !== "default") {
+      document.body.classList.add(tweakState.theme);
+    }
+    parallaxMult = parseFloat(tweakState.parallax);
+    document.querySelector(".candle").style.opacity = tweakState.candle;
+    document.querySelectorAll(".shoji-grid, .shoji-grid-2").forEach(g => {
+      g.style.display = tweakState.grid ? "" : "none";
+    });
+    document.documentElement.style.setProperty("--matcha", tweakState.accent);
+    // Sync controls
+    document.getElementById("tw-theme").value = tweakState.theme;
+    document.getElementById("tw-parallax").value = tweakState.parallax;
+    document.getElementById("tw-candle").value = tweakState.candle;
+    document.getElementById("tw-grid").checked = tweakState.grid;
+    document.getElementById("tw-accent").value = tweakState.accent;
+  }
+
+  function persist(edits) {
+    window.parent.postMessage({ type: "__edit_mode_set_keys", edits }, "*");
+  }
+
+  document.getElementById("tw-theme").addEventListener("change", e => {
+    tweakState.theme = e.target.value; applyTweaks(); persist({ theme: e.target.value });
+  });
+  document.getElementById("tw-parallax").addEventListener("input", e => {
+    tweakState.parallax = parseFloat(e.target.value); applyTweaks(); persist({ parallax: parseFloat(e.target.value) });
+  });
+  document.getElementById("tw-candle").addEventListener("input", e => {
+    tweakState.candle = parseFloat(e.target.value); applyTweaks(); persist({ candle: parseFloat(e.target.value) });
+  });
+  document.getElementById("tw-grid").addEventListener("change", e => {
+    tweakState.grid = e.target.checked; applyTweaks(); persist({ grid: e.target.checked });
+  });
+  document.getElementById("tw-accent").addEventListener("change", e => {
+    tweakState.accent = e.target.value; applyTweaks(); persist({ accent: e.target.value });
+  });
+
+  // Edit mode listener — register BEFORE announcing
+  window.addEventListener("message", (ev) => {
+    if (!ev.data || !ev.data.type) return;
+    if (ev.data.type === "__activate_edit_mode") tweaksEl.classList.add("active");
+    if (ev.data.type === "__deactivate_edit_mode") tweaksEl.classList.remove("active");
+  });
+  window.parent.postMessage({ type: "__edit_mode_available" }, "*");
+
+  applyTweaks();
+</script>
 </body>
 </html>
